@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+  # server service
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+      target: ${BUILD_TARGET}
+    image: muslim-illustrations-server
+    ports:
+      - "80:80" # Connect localhost 80 port to container 80 port
+      - "443:443"
+    networks:
+      - app-network
+    volumes:
+      - ./server/nginx/prod/:/etc/nginx/
+      - ./server/nginx/dev/:/etc/nginx/
+  # api service
+  api:
+    build:
+      context: ./api
+      target: ${BUILD_TARGET}
+      dockerfile: Dockerfile
+    image: muslim-illustrations-api
+    container_name: muslim-illustrations-api
+    command: npm run dev
+    volumes:
+      - ./api/:/app
+      - /app/node_modules
+    ports:
+      - "5000"
+    depends_on:
+      - mongo
+    networks:
+      - app-network
+    environment:
+      - MONGO_URI: ${MONGO_URI}
+  # mongo service
+  mongo:
+    image: mongo
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME: root
+      - MONGO_INITDB_ROOT_PASSWORD: example
+  # client service
+  client:
+    build:
+      context: ./client
+      target: ${BUILD_TARGET}
+      dockerfile: Dockerfile
+    image: muslim-illustrations-client
+    container_name: muslim-illustrations-client
+    command: yarn dev
+    volumes:
+      - type: bind
+        source: ./client/
+        target: /app
+      - /app/node_modules
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  data-volume:
+  node_modules:
+  web-root:
+    driver: local
