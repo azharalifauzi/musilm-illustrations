@@ -13,7 +13,7 @@
         // typescript-eslint specific options
         "warnOnUnsupportedTypeScriptVersion": true
       },
-      "rules": { 
+      "rules": {
         // TypeScript's `noFallthroughCasesInSwitch` option is more robust (#6906)
         "default-case": "off",
         // 'tsc' already handles this (https://github.com/typescript-eslint/typescript-eslint/issues/291)
@@ -55,26 +55,22 @@
         "no-useless-constructor": "off",
         "@typescript-eslint/no-useless-constructor": "warn",
         "linebreak-style": "off",
-        "prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "prettier/prettier": "error",
+        "spaced-comment": "off",
+        "no-console": "warn",
+        "consistent-return": "off",
+        "func-names": "off",
+        "object-shorthand": "off",
+        "no-process-exit": "off",
+        "no-param-reassign": "off",
+        "no-return-await": "off",
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "prefer-destructuring": ["off", { "object": true, "array": false }],
+        "object-curly-newline": "off",
+        "@typescript-eslint/naming-convention": "warn"
       }
     }
-  ],
-  "rules": {
-    "prettier/prettier": "error",
-    "spaced-comment": "off",
-    "no-console": "warn",
-    "consistent-return": "off",
-    "func-names": "off",
-    "object-shorthand": "off",
-    "no-process-exit": "off",
-    "no-param-reassign": "off",
-    "no-return-await": "off",
-    "no-underscore-dangle": "off",
-    "class-methods-use-this": "off",
-    "prefer-destructuring": "off",
-    "no-unused-vars": ["warn", { "argsIgnorePattern": "req|res|next|val" }],
-    "linebreak-style": "off",
-    "prefer-default-export": "off",
-    "object-curly-newline": "off"
-  }
+  ]
 }

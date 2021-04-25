@@ -11,7 +11,7 @@ router
   .post(
     [body('query').not().isEmpty().withMessage('query field cannot be empty')],
     validateRequest,
-    QueryController.createone,
+    QueryController.createone
   );
 
 router.route('/top-search').get(QueryController.getTopSearches);

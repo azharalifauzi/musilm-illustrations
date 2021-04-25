@@ -17,7 +17,7 @@ router
     ],
     validateRequest,
     illustrationController.uploadSvg,
-    illustrationController.createOne,
+    illustrationController.createOne
   )
   .get(illustrationController.getAll);
 

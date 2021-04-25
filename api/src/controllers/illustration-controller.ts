@@ -49,14 +49,14 @@ const uploadSvg = async (req: Request, _res: Response, next: NextFunction) => {
     let pathName = path.join(
       __dirname,
       `../${folderName}`,
-      `${req.body.title.toLowerCase().split(' ').join('-')}.svg`,
+      `${req.body.title.toLowerCase().split(' ').join('-')}.svg`
     );
 
     if (attempt > 0) {
       pathName = path.join(
         __dirname,
         `../${folderName}`,
-        `${req.body.title.toLowerCase().split(' ').join('-')}-${attempt}.svg`,
+        `${req.body.title.toLowerCase().split(' ').join('-')}-${attempt}.svg`
       );
     }
 
@@ -118,7 +118,7 @@ const updateOne = async (req: Request, res: Response) => {
       new: true,
       runValidators: true,
       useFindAndModify: false,
-    },
+    }
   );
 
   if (!doc) {

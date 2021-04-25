@@ -60,7 +60,7 @@ illustrationSchema.statics.build = (attr: IllustrationAttrs) => new Illustration
 
 const Illustration = mongoose.model<IllustrationDoc, IllustrationModel>(
   'Illustration',
-  illustrationSchema,
+  illustrationSchema
 );
 
 export { Illustration };

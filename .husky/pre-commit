@@ -5,3 +5,10 @@ cd client
 
 npm run type-check
 npm run lint
+
+cd ..
+
+cd api
+
+npm run type-check
+npm run lint
