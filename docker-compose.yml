@@ -14,8 +14,7 @@ services:
     networks:
       - app-network
     volumes:
-      - ./server/nginx/prod/:/etc/nginx/
-      - ./server/nginx/dev/:/etc/nginx/
+      - ./server/nginx/${BUILD_TARGET}/:/etc/nginx/
   # api service
   api:
     build:
@@ -29,13 +28,13 @@ services:
       - ./api/:/app
       - /app/node_modules
     ports:
-      - "5000"
+      - "5000:5000"
     depends_on:
       - mongo
     networks:
       - app-network
     environment:
-      - MONGO_URI: ${MONGO_URI}
+      - MONGO_URI=${MONGO_URI}
   # mongo service
   mongo:
     image: mongo
@@ -46,8 +45,8 @@ services:
     networks:
       - app-network
     environment:
-      - MONGO_INITDB_ROOT_USERNAME: root
-      - MONGO_INITDB_ROOT_PASSWORD: example
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
   # client service
   client:
     build:
