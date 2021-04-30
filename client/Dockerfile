@@ -9,13 +9,11 @@ FROM base as prod
 
 WORKDIR /app
 COPY --from=base /app/node_modules ./node_modules
-
-ENV NODE_ENV=production
+COPY . .
 
 RUN yarn build
 
-COPY . .
-
+ENV NODE_ENV=production
 USER node
 
 EXPOSE 3000
