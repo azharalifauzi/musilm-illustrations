@@ -28,7 +28,7 @@ services:
       context: ./api
       target: ${BUILD_TARGET}
       dockerfile: Dockerfile
-    image: muslim-illustrations-api
+    image: azharalifauzi/muslim-illustrations-api
     container_name: muslim-illustrations-api
     command: npm run dev
     volumes:
@@ -45,6 +45,7 @@ services:
   # mongo service
   mongo:
     image: mongo
+    container_name: muslim-illustrations-mongo
     volumes:
       - data-volume:/data/db
     ports:
@@ -60,9 +61,8 @@ services:
       context: ./client
       target: ${BUILD_TARGET}
       dockerfile: Dockerfile
-    image: muslim-illustrations-client
+    image: azharalifauzi/muslim-illustrations-client
     container_name: muslim-illustrations-client
-    command: yarn dev
     volumes:
       - type: bind
         source: ./client/
