@@ -1,0 +1,28 @@
+name: Docker Compose Actions Workflow
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: docker-compose build api client
+        env:
+          BUILD_TARGET: prod
+      - name: Push to docker hub
+        run: docker-compose push api client
+  deploy:
+    name: Deploy to Digitalocean
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        script: |
+          cd muslim-illustrations/
+          docker-compose pull api client
+          docker-compose rm --stop api client
+          docker-compose up -d api client
