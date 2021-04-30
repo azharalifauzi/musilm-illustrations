@@ -8,11 +8,13 @@ RUN yarn install --frozen-lockfile
 FROM base as prod
 
 WORKDIR /app
-COPY . .
 COPY --from=base /app/node_modules ./node_modules
-RUN yarn build
 
 ENV NODE_ENV=production
+
+RUN yarn build
+
+COPY . .
 
 USER node
 
