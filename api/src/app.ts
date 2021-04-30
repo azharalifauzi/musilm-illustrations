@@ -16,7 +16,7 @@ app.use('/api/v1/illustrations', illustrationRouter);
 app.use('/api/v1/queries', QueryRouter);
 
 // Welcome Page
-app.get('/', (_req, res) => {
+app.get('/api', (_req, res) => {
   res.send('<h1>Welcome to Null River API</h1>');
 });
 

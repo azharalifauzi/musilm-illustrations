@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
-FROM base as production
+FROM base as prod
 
 WORKDIR /app
 COPY . .

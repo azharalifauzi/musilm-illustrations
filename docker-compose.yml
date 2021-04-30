@@ -8,14 +8,16 @@ services:
       dockerfile: Dockerfile
       target: ${BUILD_TARGET}
     image: muslim-illustrations-server
+    container_name: muslim-illustrations-server
     ports:
       - "80:80" # Connect localhost 80 port to container 80 port
       - "443:443"
     networks:
       - app-network
     volumes:
-      - ./server/nginx/prod/:/etc/nginx/
-      - ./server/nginx/dev/:/etc/nginx/
+      - ./server/nginx/${BUILD_TARGET}/:/etc/nginx/
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
   # api service
   api:
     build:
@@ -29,13 +31,13 @@ services:
       - ./api/:/app
       - /app/node_modules
     ports:
-      - "5000"
+      - "5000:5000"
     depends_on:
       - mongo
     networks:
       - app-network
     environment:
-      - MONGO_URI: ${MONGO_URI}
+      - MONGO_URI=${MONGO_URI}
   # mongo service
   mongo:
     image: mongo
@@ -46,8 +48,8 @@ services:
     networks:
       - app-network
     environment:
-      - MONGO_INITDB_ROOT_USERNAME: root
-      - MONGO_INITDB_ROOT_PASSWORD: example
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
   # client service
   client:
     build:
@@ -70,12 +72,25 @@ services:
       - app-network
     environment:
       - CHOKIDAR_USEPOLLING=true
+  #certbot service
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - server
+    command: certonly --webroot --webroot-path=/var/www/html --email azharalifauzi@gmail.com --agree-tos --no-eff-email --force-renewal -d muslimillustrations.co -d www.muslimillustrations.co
 
 networks:
   app-network:
     driver: bridge
 
 volumes:
+  certbot-etc:
+  certbot-var:
   data-volume:
   node_modules:
   web-root:
