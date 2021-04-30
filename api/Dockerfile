@@ -7,6 +7,7 @@ COPY  --chown=node:node package.json package-lock.json /app/
 
 ENV NODE_ENV=production
 RUN npm install --production
+RUN npm install -g del-cli cpy-cli
 
 COPY --chown=node:node . /app
 
