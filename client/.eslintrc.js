@@ -41,6 +41,7 @@ module.exports = {
 
         // I suggest this setting for requiring return types on functions only where useful
         '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
       },
     },
   ],
