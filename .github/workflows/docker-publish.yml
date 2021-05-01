@@ -33,5 +33,6 @@ jobs:
           script: |
             cd muslim-illustrations/
             docker-compose pull api client
-            docker-compose rm --stop api client
+            git pull origin main
+            docker-compose rm --stop --force api client
             docker-compose up -d api client
