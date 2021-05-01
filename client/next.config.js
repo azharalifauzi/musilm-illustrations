@@ -22,6 +22,7 @@ module.exports = withPlugins([[withImages, { fileExtensions: ['jpg', 'jpeg', 'pn
             },
           },
         },
+        'url-loader',
       ],
     });
 
