@@ -85,13 +85,13 @@ export default function Home() {
 
 const ComingSoon: React.FC = () => {
   return (
-    <Box maxW="container.xl" marginTop="6">
+    <Box mx="auto" maxW="container.xl" marginTop="6">
       <Flex justifyContent="center" alignItems="center">
         <Box marginRight="3">
           <LogoMI />
         </Box>
         <Text color="#0066FF" fontFamily="heading" fontWeight="bold">
-          Muslim Illustrations
+          Muslim <br /> Illustrations
         </Text>
       </Flex>
       <Text
