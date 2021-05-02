@@ -6,6 +6,7 @@ module.exports = {
     '^hooks(.*)$': '<rootDir>/hooks$1',
     '^utils(.*)$': '<rootDir>/utils$1',
     '^assets(.*)$': '<rootDir>/assets$1',
+    '\\.svg$': '<rootDir>/__mocks__/svgrMock.tsx',
   },
   transform: {
     '^.+\\.tsx?$': 'babel-jest',
