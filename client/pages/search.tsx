@@ -11,9 +11,22 @@ const SearchPage = () => {
     <Layout>
       <main>
         <Container maxW="1536px">
-          <Grid as="form" mt="20" maxW="800" mx="auto" templateColumns="1fr auto" gap="4">
+          <Grid
+            onSubmit={(e) => e.preventDefault()}
+            as="form"
+            mt="20"
+            maxW="800"
+            mx="auto"
+            templateColumns="1fr auto"
+            gap="4"
+          >
             <Search
-              suggestions={[{ query: 'halo' }]}
+              onEnter={(val) => setSearch(val)}
+              suggestions={[
+                { query: 'halo', onClick: (query) => setSearch(query) },
+                { query: 'badnung', onClick: (query) => setSearch(query) },
+                { query: 'damn', onClick: (query) => setSearch(query) },
+              ]}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search for Illustrations"
