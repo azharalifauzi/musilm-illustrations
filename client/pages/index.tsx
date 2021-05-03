@@ -12,7 +12,7 @@ import { ColorResult } from 'react-color';
 import { InView } from 'react-intersection-observer';
 import { useWindowSize } from 'react-use';
 
-const isComingSoon = true;
+const isComingSoon = false;
 
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
@@ -75,7 +75,7 @@ export default function Home() {
                     <SlideFade offsetY="20" in={delays[0]}>
                       <Text
                         color="white"
-                        fontSize="40px"
+                        fontSize="5xl"
                         fontFamily="heading"
                         fontWeight="bold"
                         as="h1"
@@ -120,7 +120,7 @@ export default function Home() {
                   <Box>
                     <Text
                       color="brand.cyanDark"
-                      fontSize="35px"
+                      fontSize="4xl"
                       fontFamily="heading"
                       fontWeight="bold"
                       as="h2"
@@ -172,7 +172,7 @@ export default function Home() {
                       <Box ref={ref}>
                         <Text
                           color="brand.cyanDark"
-                          fontSize="35px"
+                          fontSize="4xl"
                           fontFamily="heading"
                           fontWeight="bold"
                           as="h2"
@@ -206,7 +206,7 @@ export default function Home() {
                       <Box>
                         <Text
                           color="brand.cyanDark"
-                          fontSize="35px"
+                          fontSize="4xl"
                           fontFamily="heading"
                           fontWeight="bold"
                           as="h2"

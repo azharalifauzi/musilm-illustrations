@@ -23,7 +23,7 @@ const IllustrationsPage = () => {
           <Container maxW="1536px">
             <Grid mt="20" mb="5" alignItems="center" templateColumns="1fr auto 1fr" gap="6">
               <Box w="100%" height="2px" background="brand.cyan" />
-              <Text as="h1" fontSize="20" color="brand.cyan" fontFamily="heading" fontWeight="700">
+              <Text as="h1" fontSize="xl" color="brand.cyan" fontFamily="heading" fontWeight="700">
                 Free Illustration, for every project you’d need
               </Text>
               <Box w="100%" height="2px" background="brand.cyan" />

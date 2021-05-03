@@ -11,7 +11,7 @@ const LicensePage = () => {
             <Box>
               <Text
                 mb="4"
-                fontSize="35"
+                fontSize="4xl"
                 fontWeight="700"
                 color="brand.cyanDark"
                 fontFamily="heading"
@@ -33,7 +33,7 @@ const LicensePage = () => {
           <Box>
             <Text
               mb="4"
-              fontSize="35"
+              fontSize="4xl"
               fontWeight="700"
               color="brand.cyanDark"
               fontFamily="heading"
@@ -54,10 +54,10 @@ const LicensePage = () => {
               <IlAttachment />
             </GridItem>
             <GridItem colSpan={2}>
-              <Text mb="4" fontSize="35" fontWeight="700" fontFamily="heading" as="h2">
+              <Text mb="4" fontSize="4xl" fontWeight="700" fontFamily="heading" as="h2">
                 Full license text
               </Text>
-              <Text as="h3" mb="4" fontSize="20">
+              <Text as="h3" mb="4" fontSize="xl">
                 Copyright 2021 • Muslim Illustration
               </Text>
               <Text>
@@ -75,7 +75,7 @@ const LicensePage = () => {
                 non-automated ways to link, embed, scrape, search or download the assets included on
                 the website without our consent.
               </Text>
-              <Text as="h3" my="4" fontSize="20">
+              <Text as="h3" my="4" fontSize="xl">
                 Regarding brand logos that are included:
               </Text>
               <Text>

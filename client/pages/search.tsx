@@ -35,7 +35,7 @@ const SearchPage = () => {
           </Grid>
           <Grid mt="20" alignItems="center" templateColumns="1fr auto 1fr" gap="6">
             <Box w="100%" height="2px" background="brand.cyan" />
-            <Text as="h1" fontSize="20" color="brand.cyan" fontFamily="heading" fontWeight="700">
+            <Text as="h1" fontSize="xl" color="brand.cyan" fontFamily="heading" fontWeight="700">
               Our top searches, just for you
             </Text>
             <Box w="100%" height="2px" background="brand.cyan" />

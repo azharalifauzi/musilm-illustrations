@@ -44,10 +44,16 @@ const IllustrationDetail: React.FC<IllustrationDetailProps> = ({
           <Grid templateColumns="repeat(2, 1fr)">
             <Box color={color}>{children}</Box>
             <Box>
-              <Text as="h2" fontFamily="heading" fontSize="24" color="brand.cyan" fontWeight="bold">
+              <Text
+                as="h2"
+                fontFamily="heading"
+                fontSize="2xl"
+                color="brand.cyan"
+                fontWeight="bold"
+              >
                 {title}
               </Text>
-              <Text fontSize="12" mb="7">
+              <Text color="brand.cyanDark" fontSize="xs" mb="7">
                 Illustration by {author}
               </Text>
               <Flex mb="12" alignItems="center">
@@ -80,7 +86,9 @@ const IllustrationDetail: React.FC<IllustrationDetailProps> = ({
                 </Popover>
               </Flex>
               <Box mb="6">
-                <Text mb="1">Share :</Text>
+                <Text color="brand.cyanDark" mb="1">
+                  Share :
+                </Text>
                 <Grid templateColumns="repeat(4, max-content)" gap="10px">
                   <TwitterShareButton url="https://muslimillustrations.co/illustrations?open-detail=asdf">
                     <TwitterIcon round size={32} />
