@@ -146,6 +146,7 @@ const Search: React.FC<SearchProps> = ({
                 onMouseOver={() => {
                   setHighlighted(i);
                 }}
+                aria-selected={highlighted === i ? 'true' : undefined}
               >
                 {query}
               </Box>
