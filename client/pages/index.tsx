@@ -12,7 +12,7 @@ import { ColorResult } from 'react-color';
 import { InView } from 'react-intersection-observer';
 import { useWindowSize } from 'react-use';
 
-const isComingSoon = false;
+const isComingSoon = true;
 
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
@@ -248,7 +248,7 @@ const ComingSoon: React.FC = () => {
         <Box marginRight="3">
           <LogoMI />
         </Box>
-        <Text color="#0066FF" fontFamily="heading" fontWeight="bold">
+        <Text color="brand.cyanBlue" fontFamily="heading" fontWeight="bold">
           Muslim <br /> Illustrations
         </Text>
       </Flex>

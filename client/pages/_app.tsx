@@ -24,6 +24,7 @@ const theme = extendTheme<ChakraTheme>({
       green: '#6AF078',
       darkGrey: '#A0A0A0',
       softGrey: '#D5D5D5',
+      cyanBlue: '#06A0A8',
     },
   },
   components: {
