@@ -10,8 +10,8 @@ services:
     image: muslim-illustrations-server
     container_name: muslim-illustrations-server
     ports:
-      - "80:80" # Connect localhost 80 port to container 80 port
-      - "443:443"
+      - "8080:80" # Connect localhost 80 port to container 80 port
+      - "8081:443"
     networks:
       - app-network
     volumes:
@@ -85,8 +85,6 @@ services:
       - certbot-etc:/etc/letsencrypt
       - certbot-var:/var/lib/letsencrypt
       - web-root:/var/www/html
-    depends_on:
-      - server
     command: certonly --webroot --webroot-path=/var/www/html --email azharalifauzi@gmail.com --agree-tos --no-eff-email --force-renewal -d muslimillustrations.co -d www.muslimillustrations.co
 
 networks:
