@@ -11,7 +11,5 @@ globby(['./src/**/*.ts', '!./src/**/*.test.ts']).then((sourceFiles) => {
     platform: 'node',
     format: 'cjs',
     tsconfig: './tsconfig.build.json',
-    watch: true,
-    run: ['node', 'dist/index.js'],
   });
 });

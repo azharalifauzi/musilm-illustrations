@@ -18,6 +18,7 @@ export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
 
   const { delays } = useDelay([0, 200, 200, 300, 300, 300, 300]);
+  const { height } = useWindowSize(undefined, 900);
 
   const handleChangeColor = (color: ColorResult) => {
     setColor(color.hex);
@@ -31,7 +32,7 @@ export default function Home() {
       </Head>
 
       {isComingSoon ? (
-        <ComingSoon />
+        <ComingSoon height={height} />
       ) : (
         <Layout>
           <main>
@@ -239,9 +240,7 @@ export default function Home() {
   );
 }
 
-const ComingSoon: React.FC = () => {
-  const { height } = useWindowSize();
-
+const ComingSoon: React.FC<{ height: number }> = ({ height }) => {
   return (
     <Box>
       <Flex h={100} justifyContent="center" alignItems="center">

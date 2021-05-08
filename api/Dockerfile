@@ -14,10 +14,10 @@ COPY --chown=node:node . /app
 
 ENV NODE_ENV=production
 
-RUN chmod +x build.js
-RUN ./build.js
+RUN chmod +x build.prod.js
+RUN ./build.prod.js
 
-USER node
+USER root
 
 EXPOSE 5000
 

@@ -30,10 +30,10 @@ services:
       dockerfile: Dockerfile
     image: azharalifauzi/muslim-illustrations-api
     container_name: muslim-illustrations-api
-    command: npm run dev
     volumes:
-      - ./api/:/app
-      - /app/node_modules
+      - ./api/:/app/main
+      - /app/main/node_modules
+      - data-images:/app/main/dist/public
     ports:
       - '5000:5000'
     depends_on:
@@ -86,6 +86,7 @@ volumes:
   certbot-etc:
   certbot-var:
   data-volume:
+  data-images:
   node_modules:
   web-root:
     driver: local
