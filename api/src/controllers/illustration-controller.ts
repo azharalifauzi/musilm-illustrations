@@ -46,6 +46,11 @@ const uploadSvg = async (req: Request, _res: Response, next: NextFunction) => {
 
     if (process.env.NODE_ENV === 'test') folderName = 'tmp';
 
+    if (!fs.existsSync(path.join(__dirname, '../public'))) {
+      // create folder if public folder didn't exist
+      fs.mkdirSync(path.join(__dirname, '../public'));
+    }
+
     let pathName = path.join(
       __dirname,
       `../${folderName}`,

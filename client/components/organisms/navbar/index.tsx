@@ -1,5 +1,6 @@
-import { Flex, Grid, Image, Link as Anchor, Text } from '@chakra-ui/react';
+import { Flex, Grid, Image, Text } from '@chakra-ui/react';
 import { LogoMIUrl } from 'assets';
+import { IcMenu, IcSearch } from 'assets/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -15,34 +16,49 @@ const Navbar = () => {
       height="20"
     >
       <Link href="/">
-        <Anchor cursor="pointer" display="flex" alignItems="center">
-          <Image height="12" mr="4" src={LogoMIUrl} alt="Logo Muslim Illustrations" />
-          <Text color="brand.cyan" fontWeight="bold">
-            Muslim <br /> Illustrations
-          </Text>
-        </Anchor>
+        <a>
+          <Flex cursor="pointer" alignItems="center">
+            <Image height="12" mr="4" src={LogoMIUrl} alt="Logo Muslim Illustrations" />
+            <Text color="brand.cyan" fontWeight="bold">
+              Muslim <br /> Illustrations
+            </Text>
+          </Flex>
+        </a>
       </Link>
       <Grid gridTemplateColumns="repeat(2, auto)" gap="12">
         <Link href="/illustrations">
-          <Anchor
-            data-testid="illustrations-link"
-            color={asPath === '/illustrations' ? 'brand.cyan' : 'brand.cyanDark'}
-            cursor="pointer"
-            _hover={{ color: 'brand.cyan' }}
-            fontWeight="700"
-          >
-            Illustrations
-          </Anchor>
+          <a>
+            <Grid
+              data-testid="illustrations-link"
+              color={asPath === '/illustrations' ? 'brand.cyan' : 'brand.cyanDark'}
+              cursor="pointer"
+              _hover={{ color: 'brand.cyan' }}
+              fontWeight="700"
+              display="grid"
+              gridTemplateColumns="repeat(2, max-content)"
+              gap="2"
+              alignItems="center"
+            >
+              <IcMenu />
+              <span>Illustrations</span>
+            </Grid>
+          </a>
         </Link>
         <Link href="/search">
-          <Anchor
-            color={asPath === '/search' ? 'brand.cyan' : 'brand.cyanDark'}
-            cursor="pointer"
-            _hover={{ color: 'brand.cyan' }}
-            fontWeight="700"
-          >
-            Search
-          </Anchor>
+          <a>
+            <Grid
+              color={asPath === '/search' ? 'brand.cyan' : 'brand.cyanDark'}
+              cursor="pointer"
+              _hover={{ color: 'brand.cyan' }}
+              fontWeight="700"
+              gridTemplateColumns="repeat(2, max-content)"
+              gap="2"
+              alignItems="center"
+            >
+              <IcSearch />
+              <span>Search</span>
+            </Grid>
+          </a>
         </Link>
       </Grid>
     </Flex>

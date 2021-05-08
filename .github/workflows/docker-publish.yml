@@ -32,7 +32,8 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             cd muslim-illustrations/
-            docker-compose pull api client
             git pull origin main
+            docker-compose pull api client
             docker-compose rm --stop --force api client
             docker-compose up -d api client
+            docker-compose restart server

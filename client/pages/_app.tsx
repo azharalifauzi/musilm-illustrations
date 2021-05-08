@@ -24,6 +24,7 @@ const theme = extendTheme<ChakraTheme>({
       green: '#6AF078',
       darkGrey: '#A0A0A0',
       softGrey: '#D5D5D5',
+      cyanBlue: '#06A0A8',
     },
   },
   components: {
@@ -36,7 +37,7 @@ const theme = extendTheme<ChakraTheme>({
     },
     Button: {
       defaultProps: {
-        colorMode: 'cyan',
+        colormode: 'cyan',
         variants: 'solid',
       },
       variants: {
@@ -45,22 +46,40 @@ const theme = extendTheme<ChakraTheme>({
           border: '1px solid',
           borderColor:
             clsx({
-              'brand.cyan': props.colorMode === 'cyan',
-            }) ?? 'brand.cyan',
+              'brand.cyan': props.colormode === 'cyan',
+            }) || 'brand.cyan',
+          color:
+            clsx({
+              'brand.cyan': props.colormode === 'cyan',
+            }) || 'brand.cyan',
+          _hover: {
+            background: 'brand.cyan',
+            color: 'white',
+          },
         }),
         solid: (props) => ({
           background:
             clsx({
-              'brand.cyan': props.colorMode === 'cyan',
-              white: props.colorMode === 'white',
-              'brand.green': props.colorMode === 'green',
-            }) ?? 'brand.cyan',
+              'brand.cyan': props.colormode === 'cyan',
+              white: props.colormode === 'white',
+              'brand.green': props.colormode === 'green',
+              'brand.cyanDark': props.colormode === 'cyanDark',
+            }) || 'brand.cyan',
+          transform: 'scale(1)',
+          transition: 'all .3s',
           color:
             clsx({
-              'brand.cyan': props.colorMode === 'white',
-              white: props.colorMode === 'cyan' || props.colorMode === 'green',
-            }) ?? 'white',
+              'brand.cyan': props.colormode === 'white',
+              white:
+                props.colormode === 'cyan' ||
+                props.colormode === 'green' ||
+                props.colormode === 'cyanDark',
+            }) || 'brand.cyan',
           _hover: {
+            background: '',
+            transform: 'scale(1.025)',
+          },
+          _active: {
             background: '',
           },
         }),
