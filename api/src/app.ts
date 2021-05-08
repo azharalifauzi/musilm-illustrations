@@ -9,7 +9,7 @@ import { defaultErrorHandler } from './controllers/error-handler';
 const app = express();
 
 app.use(json({ limit: '10kb' }));
-app.use('/public', express.static(path.join(__dirname, './public')));
+app.use('/api/public', express.static(path.join(__dirname, './public')));
 
 // Routes
 app.use('/api/v1/illustrations', illustrationRouter);
