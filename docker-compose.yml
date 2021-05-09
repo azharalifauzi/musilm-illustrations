@@ -11,17 +11,10 @@ services:
     container_name: muslim-illustrations-server
     ports:
       - "8080:80" # Connect localhost 80 port to container 80 port
-      - "8081:443"
     networks:
       - app-network
     volumes:
-      - web-root:/var/www/html
       - ./server/nginx/${BUILD_TARGET}/:/etc/nginx/
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-    depends_on: 
-      - api
-      - client
   # api service
   api:
     build:
@@ -34,6 +27,7 @@ services:
       - ./api/:/app
       - /app/node_modules
       - data-images:/app/dist/public
+      - /app/dist
     ports:
       - "5000:5000"
     depends_on:
@@ -69,31 +63,18 @@ services:
         target: /app
       - /app/node_modules
       - /app/.next
-    depends_on:
-      - api
     ports:
       - "3000:3000"
     networks:
       - app-network
     environment:
       - CHOKIDAR_USEPOLLING=true
-  #certbot service
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - certbot-etc:/etc/letsencrypt
-      - certbot-var:/var/lib/letsencrypt
-      - web-root:/var/www/html
-    command: certonly --webroot --webroot-path=/var/www/html --email azharalifauzi@gmail.com --agree-tos --no-eff-email --force-renewal -d muslimillustrations.co -d www.muslimillustrations.co
 
 networks:
   app-network:
     driver: bridge
 
 volumes:
-  certbot-etc:
-  certbot-var:
   data-volume:
   data-images:
   node_modules:
