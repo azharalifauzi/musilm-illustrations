@@ -22,7 +22,7 @@ router
   .get(illustrationController.getAll);
 
 router.route('/all-categories').get(illustrationController.getCategories);
-router.route('/download').get(illustrationController.downloadOne);
+router.route('/download').post(illustrationController.downloadOne);
 
 router
   .route('/:id')

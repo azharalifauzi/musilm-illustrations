@@ -98,6 +98,8 @@ const createOne = async (req: Request, res: Response) => {
     description,
     url: req.pathName,
     author,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   await illustration.save();
@@ -141,6 +143,14 @@ const updateOne = async (req: Request, res: Response) => {
 const deleteOne = async (req: Request, res: Response) => {
   const doc = await Illustration.findByIdAndDelete(req.params.id);
 
+  const pathName = path.join(__dirname, `../public/${doc.url}`);
+
+  if (fs.existsSync(pathName)) {
+    fs.unlink(pathName, () => {
+      console.log('file ', doc.url, ' Successfully Deleted');
+    });
+  }
+
   if (!doc) {
     return res.status(404).send({
       message: '404 Not Found',
@@ -178,6 +188,7 @@ const getAll = async (req: Request, res: Response) => {
   const select = req.query.select || '';
   const categories = req.query.categories?.toString().split(',') || undefined;
   const search = req.query.search || undefined;
+  const page = Number(req.query.page) || 1;
 
   let filter: Filter = {};
 
@@ -209,7 +220,8 @@ const getAll = async (req: Request, res: Response) => {
     .collation({ locale: 'en' })
     .sort(sort)
     .limit(limit)
-    .select(select);
+    .select(select)
+    .skip((page - 1) * limit);
 
   res.status(200).send({
     message: 'OK',
@@ -249,6 +261,8 @@ const downloadOne = async (req: Request, res: Response) => {
   const { color = '#6C63FF', format = 'svg', id } = req.body;
 
   const doc = await Illustration.findById(id);
+
+  console.log(id);
 
   doc.downloadCount += 1;
   await doc.save();

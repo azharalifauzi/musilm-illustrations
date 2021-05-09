@@ -10,7 +10,7 @@ const SearchPage = () => {
   return (
     <Layout>
       <main>
-        <Container maxW="1536px">
+        <Container px={{ base: '6', md: '10' }} maxW="1536px">
           <Grid
             onSubmit={(e) => e.preventDefault()}
             as="form"
@@ -35,12 +35,27 @@ const SearchPage = () => {
           </Grid>
           <Grid mt="20" alignItems="center" templateColumns="1fr auto 1fr" gap="6">
             <Box w="100%" height="2px" background="brand.cyan" />
-            <Text as="h1" fontSize="xl" color="brand.cyan" fontFamily="heading" fontWeight="700">
+            <Text
+              textAlign="center"
+              as="h1"
+              fontSize="xl"
+              color="brand.cyan"
+              fontFamily="heading"
+              fontWeight="700"
+            >
               Our top searches, just for you
             </Text>
             <Box w="100%" height="2px" background="brand.cyan" />
           </Grid>
-          <Grid templateColumns="repeat(4, 1fr)" gap="9" mt="32">
+          <Grid
+            templateColumns={{
+              base: 'repeat(1, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              lg: 'repeat(4, 1fr)',
+            }}
+            gap="9"
+            mt={{ lg: '32', base: '16' }}
+          >
             <IllustrationCard title="Halo">
               <ILLicense />
             </IllustrationCard>

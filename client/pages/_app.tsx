@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import { ChakraProvider, extendTheme, ChakraTheme } from '@chakra-ui/react';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
 import clsx from 'clsx';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const breakpoints = createBreakpoints({
   sm: '640px',
@@ -88,11 +89,15 @@ const theme = extendTheme<ChakraTheme>({
   },
 });
 
+const queryClient = new QueryClient();
+
 function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 }
 
