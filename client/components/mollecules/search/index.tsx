@@ -110,7 +110,7 @@ const Search: React.FC<SearchProps> = ({
           role="textbox"
           value={value}
           onChange={(e) => {
-            onChange(e);
+            if (onChange) onChange(e);
             if (!isFocused) setIsFocused(true);
           }}
           placeholder={placeholder}

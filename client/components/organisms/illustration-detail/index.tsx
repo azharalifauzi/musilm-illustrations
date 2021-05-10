@@ -129,7 +129,11 @@ const IllustrationDetail: React.FC<IllustrationDetailProps> = ({
                   size="xl"
                 />
               ) : (
-                <div className={styles.svg} dangerouslySetInnerHTML={{ __html: data }} />
+                <div
+                  data-testid="illustration"
+                  className={styles.svg}
+                  dangerouslySetInnerHTML={{ __html: data }}
+                />
               )}
             </Flex>
             <Box>
