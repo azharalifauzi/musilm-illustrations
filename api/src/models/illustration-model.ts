@@ -18,6 +18,7 @@ export interface IllustrationDoc extends mongoose.Document {
   author?: string;
   updatedAt?: Date;
   createdAt?: Date;
+  downloadCount: number;
 }
 
 interface IllustrationModel extends mongoose.Model<IllustrationDoc> {

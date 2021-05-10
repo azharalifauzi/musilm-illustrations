@@ -22,6 +22,7 @@ router
   .get(illustrationController.getAll);
 
 router.route('/all-categories').get(illustrationController.getCategories);
+router.route('/search').post(illustrationController.fuzzySearch);
 router.route('/download').post(illustrationController.downloadOne);
 
 router

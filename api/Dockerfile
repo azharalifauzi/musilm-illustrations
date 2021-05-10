@@ -23,7 +23,7 @@ EXPOSE 5000
 
 CMD ["node", "dist/index.js"]
 
-FROM node:15.14-buster-slim as dev
+FROM node:lts-alpine@sha256:bdec2d4aa13450a2e2654e562df1d8a3016b3c4ab390ccd3ed09d861cbdb0d83 as dev
 
 WORKDIR /app
 
@@ -31,6 +31,8 @@ COPY --from=base /app/node_modules ./node_modules
 
 WORKDIR /app/main
 COPY . .
+# hack node-gyp error
+RUN npm install sharp
 
 ENV NODE_ENV=development
 
