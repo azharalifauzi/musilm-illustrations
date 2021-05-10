@@ -13,7 +13,7 @@ describe('Navbar Component', () => {
     render(<Navbar />);
 
     const textBrand = screen.getByText(/Muslim Illustrations/i);
-    const logo = screen.getByAltText(/logo muslim illustrations/i);
+    const logo = screen.getByTestId(/logo muslim illustrations/i);
 
     expect(textBrand).toBeInTheDocument();
     expect(logo).toBeInTheDocument();
