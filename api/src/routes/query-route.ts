@@ -14,6 +14,8 @@ router
     QueryController.createone
   );
 
+router.route('/search-suggestions').post(QueryController.getSearchSuggestions);
+
 router.route('/top-search').get(QueryController.getTopSearches);
 
 export default router;

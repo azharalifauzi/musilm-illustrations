@@ -7,6 +7,7 @@ interface IllustrationAttrs {
   categories: string[];
   author?: string;
   updatedAt?: Date;
+  createdAt?: Date;
 }
 
 export interface IllustrationDoc extends mongoose.Document {
@@ -16,6 +17,8 @@ export interface IllustrationDoc extends mongoose.Document {
   categories: string[];
   author?: string;
   updatedAt?: Date;
+  createdAt?: Date;
+  downloadCount: number;
 }
 
 interface IllustrationModel extends mongoose.Model<IllustrationDoc> {
@@ -41,11 +44,11 @@ const illustrationSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: new Date(),
   },
   updatedAt: {
     type: Date,
-    default: Date.now(),
+    default: new Date(),
   },
   downloadCount: {
     type: Number,

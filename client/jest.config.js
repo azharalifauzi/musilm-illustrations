@@ -7,6 +7,7 @@ module.exports = {
     '^utils(.*)$': '<rootDir>/utils$1',
     '^assets(.*)$': '<rootDir>/assets$1',
     '\\.svg$': '<rootDir>/__mocks__/svgrMock.tsx',
+    '\\.(css|less|scss|sss|styl)$': '<rootDir>/node_modules/jest-css-modules',
   },
   transform: {
     '^.+\\.tsx?$': 'babel-jest',

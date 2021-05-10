@@ -3,7 +3,9 @@ import path from 'path';
 import { NextFunction, Request, Response } from 'express';
 import multer, { FileFilterCallback } from 'multer';
 import sharp from 'sharp';
+import Fuse from 'fuse.js';
 import { Illustration } from '../models/illustration-model';
+import { Query } from '../models/query-model';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -98,6 +100,8 @@ const createOne = async (req: Request, res: Response) => {
     description,
     url: req.pathName,
     author,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   await illustration.save();
@@ -141,6 +145,16 @@ const updateOne = async (req: Request, res: Response) => {
 const deleteOne = async (req: Request, res: Response) => {
   const doc = await Illustration.findByIdAndDelete(req.params.id);
 
+  if (doc) {
+    const pathName = path.join(__dirname, `../public/${doc.url}`);
+
+    if (fs.existsSync(pathName)) {
+      fs.unlink(pathName, () => {
+        console.log('file ', doc.url, ' Successfully Deleted');
+      });
+    }
+  }
+
   if (!doc) {
     return res.status(404).send({
       message: '404 Not Found',
@@ -178,6 +192,7 @@ const getAll = async (req: Request, res: Response) => {
   const select = req.query.select || '';
   const categories = req.query.categories?.toString().split(',') || undefined;
   const search = req.query.search || undefined;
+  const page = Number(req.query.page) || 1;
 
   let filter: Filter = {};
 
@@ -209,7 +224,8 @@ const getAll = async (req: Request, res: Response) => {
     .collation({ locale: 'en' })
     .sort(sort)
     .limit(limit)
-    .select(select);
+    .select(select)
+    .skip((page - 1) * limit);
 
   res.status(200).send({
     message: 'OK',
@@ -250,14 +266,14 @@ const downloadOne = async (req: Request, res: Response) => {
 
   const doc = await Illustration.findById(id);
 
-  doc.downloadCount += 1;
-  await doc.save();
-
   if (!doc) {
     return res.status(404).send({
       message: '404 Not Found',
     });
   }
+
+  doc.downloadCount += 1;
+  await doc.save();
 
   fs.readFile(path.join(__dirname, '../public', doc.url), async (err, data: Buffer) => {
     if (err) {
@@ -288,6 +304,49 @@ const downloadOne = async (req: Request, res: Response) => {
   });
 };
 
+const fuzzySearch = async (req: Request, res: Response) => {
+  const { search } = req.body;
+
+  const docs = await Illustration.find({});
+
+  const fuse = new Fuse(docs, {
+    keys: [
+      {
+        name: 'title',
+        weight: 0.6,
+      },
+      {
+        name: 'description',
+        weight: 0.2,
+      },
+      {
+        name: 'categories',
+        weight: 0.2,
+      },
+    ],
+    shouldSort: true,
+    includeScore: true,
+    ignoreLocation: true,
+    isCaseSensitive: false,
+    threshold: 0.3,
+  });
+
+  const data = fuse.search(search);
+
+  if (data.length > 0) {
+    const doc = Query.build({
+      query: search,
+    });
+
+    await doc.save();
+  }
+
+  res.status(200).send({
+    message: 'OK',
+    data,
+  });
+};
+
 export {
   createOne,
   getFileMiddleware,
@@ -298,4 +357,5 @@ export {
   deleteOne,
   getOne,
   downloadOne,
+  fuzzySearch,
 };
