@@ -27,16 +27,16 @@ const getAllQueries = async (req: Request, res: Response) => {
   });
 };
 
+type QueryTopSearch = {
+  query: string;
+  count: number;
+};
+
 const getTopSearches = async (req: Request, res: Response) => {
   const { forLastMonth = 3, year = new Date().getFullYear(), limit = 4 } = req.query;
 
   const month = new Date().getMonth() + 1 - Number(forLastMonth);
   const date = new Date(`${year}-${month}-01`);
-
-  type QueryTopSearch = {
-    query: string;
-    count: number;
-  };
 
   const docs = await Query.aggregate<QueryTopSearch>([
     {
@@ -91,9 +91,25 @@ const getTopSearches = async (req: Request, res: Response) => {
 };
 
 const getSearchSuggestions = async (req: Request, res: Response) => {
-  const { search } = req.body;
+  const { search = '' } = req.body;
 
-  const docs = await Query.find({});
+  const docs = await Query.aggregate<QueryTopSearch>([
+    {
+      $group: {
+        _id: '$query',
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $addFields: { query: '$_id' },
+    },
+    {
+      $project: { _id: 0 },
+    },
+    {
+      $sort: { count: -1 },
+    },
+  ]);
 
   const fuse = new Fuse(docs, {
     isCaseSensitive: false,
@@ -102,13 +118,13 @@ const getSearchSuggestions = async (req: Request, res: Response) => {
     keys: ['query'],
   });
 
-  const data = fuse.search(search);
+  const data = fuse.search<{ query: string }>(search);
 
   if (data.length > 10) data.length = 10;
 
   res.status(200).send({
     message: 'OK',
-    data,
+    data: Array.from(data, ({ item }) => ({ query: item.query })),
   });
 };
 

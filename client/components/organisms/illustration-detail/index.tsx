@@ -47,6 +47,8 @@ const IllustrationDetail: React.FC<IllustrationDetailProps> = ({
   const { data, isLoading } = useQuery<string>(
     ['illustrationString', url],
     async () => {
+      if (!url) return;
+
       const res = await fetch(`/api/public/${url}`);
 
       if (res.status === 404) {

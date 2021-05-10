@@ -1,15 +1,22 @@
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input';
+import { Input, InputGroup, InputLeftElement, InputRightElement } from '@chakra-ui/input';
 import { Box } from '@chakra-ui/layout';
+import { Spinner } from '@chakra-ui/spinner';
 import { IcSearch } from 'assets/icons';
 import { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 
+export type SearchSuggestion = {
+  query: string;
+  onClick?: (query: string) => void;
+};
+
 interface SearchProps {
-  suggestions?: { query: string; onClick?: (query: string) => void }[];
+  suggestions?: SearchSuggestion[];
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   onEnter?: (value: string) => void;
+  isLoading?: boolean;
 }
 
 const Search: React.FC<SearchProps> = ({
@@ -18,6 +25,7 @@ const Search: React.FC<SearchProps> = ({
   onChange,
   placeholder,
   onEnter,
+  isLoading,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [highlighted, setHighlighted] = useState<number>(0);
@@ -71,8 +79,8 @@ const Search: React.FC<SearchProps> = ({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         setIsFocused(false);
-        inputRef.current.blur();
-        onEnter(suggestions[highlighted].query);
+        // inputRef.current.blur();
+        if (suggestions[highlighted] && onEnter) onEnter(suggestions[highlighted].query);
       }
     };
 
@@ -101,9 +109,15 @@ const Search: React.FC<SearchProps> = ({
           }}
           role="textbox"
           value={value}
-          onChange={onChange}
+          onChange={(e) => {
+            onChange(e);
+            if (!isFocused) setIsFocused(true);
+          }}
           placeholder={placeholder}
         />
+        <InputRightElement>
+          {isLoading && <Spinner color="brand.cyan" size="sm" />}
+        </InputRightElement>
       </InputGroup>
       {isFocused && value?.length > 0 && (
         <Box

@@ -5,7 +5,7 @@ interface IQuery {
   createdAt?: Date;
 }
 
-interface IQueryDoc extends IQuery, Document {}
+export interface IQueryDoc extends IQuery, Document {}
 
 interface IQueryModel extends Model<IQueryDoc> {
   build(attrs: IQuery): IQueryDoc;

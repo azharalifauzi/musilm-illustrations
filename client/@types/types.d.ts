@@ -5,6 +5,7 @@ interface Illustration {
   createdAt: string;
   url: string;
   downloadCount: number;
+  author?: string;
 }
 
 interface Category {
