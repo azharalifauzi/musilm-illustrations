@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/layout';
-import { ChromePicker, Color, ColorChangeHandler, HuePicker, TwitterPicker } from 'react-color';
 import { CSSProperties, forwardRef } from 'react';
+import { ChromePicker, Color, ColorChangeHandler, HuePicker, TwitterPicker } from 'react-color';
 
 interface ColorPickerProps {
   color?: Color;
@@ -11,7 +11,15 @@ interface ColorPickerProps {
 const ColorPicker = forwardRef<HTMLDivElement, ColorPickerProps>(
   ({ color, onChange, style }, ref) => {
     return (
-      <Box style={style} ref={ref} p="2" borderRadius="4" boxShadow="md" bg="white">
+      <Box
+        userSelect="none"
+        style={style}
+        ref={ref}
+        p="2"
+        borderRadius="4"
+        boxShadow="md"
+        bg="white"
+      >
         <ChromePicker
           styles={{
             default: {

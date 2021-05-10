@@ -1,5 +1,5 @@
-import { Flex, Grid, Image, Text } from '@chakra-ui/react';
-import { LogoMIUrl } from 'assets';
+import { Box, Flex, Grid, Text } from '@chakra-ui/react';
+import { LogoMI } from 'assets';
 import { IcMenu, IcSearch } from 'assets/icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -18,7 +18,9 @@ const Navbar = () => {
       <Link href="/">
         <a>
           <Flex cursor="pointer" alignItems="center">
-            <Image height="12" mr="4" src={LogoMIUrl} alt="Logo Muslim Illustrations" />
+            <Box mr="3">
+              <LogoMI height="56" data-testid="logo muslim illustrations" />
+            </Box>
             <Text color="brand.cyan" fontWeight="bold">
               Muslim <br /> Illustrations
             </Text>

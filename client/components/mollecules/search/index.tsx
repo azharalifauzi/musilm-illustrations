@@ -28,7 +28,7 @@ const Search: React.FC<SearchProps> = ({
   isLoading,
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [highlighted, setHighlighted] = useState<number>(0);
+  const [highlighted, setHighlighted] = useState<number>(-1);
   const parentRef = useRef(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -80,7 +80,9 @@ const Search: React.FC<SearchProps> = ({
       if (e.key === 'Enter') {
         setIsFocused(false);
         // inputRef.current.blur();
-        if (suggestions[highlighted] && onEnter) onEnter(suggestions[highlighted].query);
+        if (highlighted >= 0 && suggestions[highlighted] && onEnter)
+          onEnter(suggestions[highlighted].query);
+        setHighlighted(-1);
       }
     };
 

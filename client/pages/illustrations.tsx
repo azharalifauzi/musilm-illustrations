@@ -163,7 +163,8 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
                 onChange={(selected) => {
                   if (!Array.isArray(selected)) setCategory(selected);
                   setPageByCategory(1);
-                  setILByCategory([]);
+
+                  if (selected !== category) setILByCategory([]);
                 }}
               />
             </Flex>
