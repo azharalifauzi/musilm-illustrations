@@ -52,7 +52,7 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
     }
   }, [inView, hasNextPage, category]);
 
-  const { isPreviousData } = useQuery<
+  const { isFetchedAfterMount } = useQuery<
     Illustration[],
     unknown,
     Illustration[],
@@ -164,7 +164,9 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
                   if (!Array.isArray(selected)) setCategory(selected);
                   setPageByCategory(1);
 
-                  if (selected !== category) setILByCategory([]);
+                  if (selected !== category) {
+                    setILByCategory([]);
+                  }
                 }}
               />
             </Flex>
@@ -230,7 +232,7 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
                   );
                 })}
             </Grid>
-            {!isPreviousData && hasNextPage && (
+            {!isFetchedAfterMount && (
               <Text mt="6" fontWeight="bold" textAlign="center">
                 Loading...
               </Text>
