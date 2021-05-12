@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/button';
 import { Box, Container, Flex, Grid, Text } from '@chakra-ui/layout';
 import { SlideFade } from '@chakra-ui/transition';
-import { ILDummy, IlFiles, ILHero, ILLicense, LogoMI } from 'assets';
+import { IlComingSoon, IlFiles, ILHero, ILLicense, LogoMI } from 'assets';
 import { Layout } from 'components';
 import ColorPicker from 'components/organisms/color-picker';
 import { useDelay } from 'hooks';
@@ -12,7 +12,7 @@ import { ColorResult } from 'react-color';
 import { InView } from 'react-intersection-observer';
 import { useWindowSize } from 'react-use';
 
-const isComingSoon = false;
+const isComingSoon = true;
 
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
@@ -258,11 +258,12 @@ const ComingSoon: React.FC<{ height: number }> = ({ height }) => {
           fontSize={{ md: '5xl', base: '4xl' }}
           textAlign="center"
           color="brand.cyan"
+          mb="10"
         >
           COMING SOON
         </Text>
-        <Flex p="4" justifyContent="center">
-          <ILDummy />
+        <Flex p={{ md: 4, base: 6 }} justifyContent="center">
+          <IlComingSoon width="640" />
         </Flex>
       </Flex>
     </Box>
