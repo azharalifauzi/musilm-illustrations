@@ -130,10 +130,15 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
         author="Syamil"
         id={detail?._id || (query['open-detail'] as string)}
         url={detail?.url || (query['url'] as string)}
-      ></IllustrationDetail>
+      />
       <Layout>
         <main>
-          <Container px={{ base: '6', md: '10' }} maxW="1536px" pb="24">
+          <Container
+            mt={{ md: '0', base: '32' }}
+            px={{ base: '6', md: '10' }}
+            maxW="1536px"
+            pb="24"
+          >
             <Grid mt="20" mb="5" alignItems="center" templateColumns="1fr auto 1fr" gap="6">
               <Box w="100%" height="2px" background="brand.cyan" />
               <Text
