@@ -42,6 +42,7 @@ export default function Home() {
               background="linear-gradient(260.56deg, #C7FCFF 6.29%, #1BA9B0 79.54%)"
               as="section"
               overflow="hidden"
+              px={{ base: '6', md: '10' }}
             >
               <Box
                 position="absolute"
@@ -108,6 +109,7 @@ export default function Home() {
                     gridRowStart={{ base: 1, md: 'auto' }}
                     justifySelf="center"
                     color={color}
+                    position="relative"
                   >
                     <SlideFade in={delays[3]}>
                       <ILHero height="100%" width="100%" />
@@ -116,7 +118,12 @@ export default function Home() {
                 </Grid>
               </Container>
             </Box>
-            <Container as="section" py={{ base: '8', md: '20' }} maxW="1536px">
+            <Container
+              as="section"
+              px={{ base: '6', md: '10' }}
+              py={{ base: '8', md: '20' }}
+              maxW="1536px"
+            >
               <Grid
                 justifyItems="center"
                 alignItems="center"
@@ -163,7 +170,12 @@ export default function Home() {
                 </Box>
               </Grid>
             </Container>
-            <Container as="section" py={{ base: '8', md: '20' }} maxW="1536px">
+            <Container
+              as="section"
+              px={{ base: '6', md: '10' }}
+              py={{ base: '8', md: '20' }}
+              maxW="1536px"
+            >
               <Grid
                 alignItems="center"
                 templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
@@ -176,20 +188,26 @@ export default function Home() {
                 >
                   <InView triggerOnce threshold={1}>
                     {({ inView, ref }) => (
-                      <SlideFade offsetY="30" style={{ transitionDuration: '0.2s' }} in={inView}>
-                        <ColorPicker ref={ref} color={color} onChange={handleChangeColor} />
+                      <SlideFade
+                        ref={ref}
+                        offsetY="30"
+                        style={{ transitionDuration: '0.2s' }}
+                        in={inView}
+                      >
+                        <ColorPicker color={color} onChange={handleChangeColor} />
                       </SlideFade>
                     )}
                   </InView>
                 </Box>
-                <InView triggerOnce threshold={1}>
+                <InView triggerOnce threshold={0.25}>
                   {({ inView, ref }) => (
                     <SlideFade
                       offsetY="30"
                       style={{ transitionDuration: '0.2s', transitionDelay: '0.3s' }}
                       in={inView}
+                      ref={ref}
                     >
-                      <Box textAlign={{ md: 'left', base: 'center' }} ref={ref}>
+                      <Box textAlign={{ md: 'left', base: 'center' }}>
                         <Text
                           color="brand.cyanDark"
                           fontSize="4xl"
@@ -205,18 +223,9 @@ export default function Home() {
                           justifySelf="center"
                           color="brand.cyan"
                           my="8"
+                          position="relative"
                         >
-                          <InView triggerOnce threshold={1}>
-                            {({ inView, ref }) => (
-                              <SlideFade
-                                offsetY="30"
-                                style={{ transitionDuration: '0.2s' }}
-                                in={inView}
-                              >
-                                <ColorPicker ref={ref} color={color} onChange={handleChangeColor} />
-                              </SlideFade>
-                            )}
-                          </InView>
+                          <ColorPicker color={color} onChange={handleChangeColor} />
                         </Box>
                         <Text maxW="512px" mb="8" color="brand.cyanDark">
                           Have you ever had a problem where an illustration you saw was too good to
@@ -230,8 +239,13 @@ export default function Home() {
                 </InView>
               </Grid>
             </Container>
-            <Container as="section" py={{ base: '8', md: '20' }} maxW="1536px">
-              <InView triggerOnce threshold={1}>
+            <Container
+              as="section"
+              px={{ base: '6', md: '10' }}
+              py={{ base: '8', md: '20' }}
+              maxW="1536px"
+            >
+              <InView triggerOnce threshold={0.25}>
                 {({ inView, ref }) => (
                   <SlideFade offsetY={20} style={{ transitionDuration: '0.3s' }} in={inView}>
                     <Grid

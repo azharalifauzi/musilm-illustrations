@@ -6,7 +6,7 @@ const LicensePage = () => {
   return (
     <Layout>
       <main>
-        <Container mt="20" maxW="1536">
+        <Container px={{ base: '6', md: '10' }} mt={{ md: '20', base: '32' }} maxW="1536">
           <Grid
             mb="10"
             justifyItems="center"

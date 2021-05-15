@@ -115,7 +115,7 @@ const SearchPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({ 
       />
       <Layout>
         <main>
-          <Container px={{ base: '6', md: '10' }} maxW="1536px">
+          <Container mt={{ md: '0', base: '32' }} px={{ base: '6', md: '10' }} maxW="1536px">
             <Grid
               onSubmit={(e) => handleSearch.mutate(e)}
               as="form"

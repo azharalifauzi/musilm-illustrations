@@ -26,9 +26,14 @@ describe('Navbar Component', () => {
     render(<Navbar />);
 
     const illustrations = screen.getByTestId('illustrations-link');
-    const search = screen.getByText(/search/i);
+    const illustrationsMobile = screen.getByTestId('illustrations-link-mobile');
+    const search = screen.getAllByText(/search/i);
 
     expect(illustrations).toBeInTheDocument();
-    expect(search).toBeInTheDocument();
+    expect(illustrationsMobile).toBeInTheDocument();
+    // search mobile version
+    expect(search[0]).toBeInTheDocument();
+    // search desktop version
+    expect(search[1]).toBeInTheDocument();
   });
 });
