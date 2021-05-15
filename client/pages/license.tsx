@@ -7,8 +7,12 @@ const LicensePage = () => {
     <Layout>
       <main>
         <Container mt="20" maxW="1536">
-          <Grid justifyItems="center" templateColumns="repeat(2, 1fr)">
-            <Box>
+          <Grid
+            mb="10"
+            justifyItems="center"
+            templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
+          >
+            <Box textAlign={{ md: 'left', base: 'center' }}>
               <Text
                 mb="4"
                 fontSize="4xl"
@@ -19,6 +23,14 @@ const LicensePage = () => {
               >
                 Creative Commons License
               </Text>
+              <Box
+                my="8"
+                display={{ md: 'none', base: 'flex' }}
+                justifyContent="center"
+                color="brand.cyanDark"
+              >
+                <ILLicense style={{ maxWidth: 476 }} height="100%" width="100%" />
+              </Box>
               <Text color="brand.cyanDark">
                 We’re using <strong>Creative Commons Zero (CC0)</strong> license for all of our
                 illustrations. That means you can copy, modify, distribute and perform the work,
@@ -26,11 +38,11 @@ const LicensePage = () => {
                 right, a trully free-to-use illustrations for all of your projects’ needs.
               </Text>
             </Box>
-            <Box color="brand.cyanDark">
+            <Box display={{ md: 'block', base: 'none' }} color="brand.cyanDark">
               <ILLicense />
             </Box>
           </Grid>
-          <Box>
+          <Box textAlign={{ md: 'left', base: 'center' }}>
             <Text
               mb="4"
               fontSize="4xl"
@@ -49,11 +61,19 @@ const LicensePage = () => {
               should not proceed.
             </Text>
           </Box>
-          <Grid color="brand.cyanDark" my="20" templateColumns="repeat(3, 1fr)">
-            <GridItem colSpan={1}>
-              <IlAttachment />
+          <Grid
+            color="brand.cyanDark"
+            my="20"
+            templateColumns={{ md: 'repeat(3, 1fr)', base: '1fr' }}
+          >
+            <GridItem
+              justifySelf={{ md: 'left', base: 'center' }}
+              mb={{ md: 0, base: '8' }}
+              colSpan={1}
+            >
+              <IlAttachment viewBox="0 0 340 359" height="100%" width="100%" />
             </GridItem>
-            <GridItem colSpan={2}>
+            <GridItem textAlign={{ md: 'left', base: 'center' }} colSpan={{ md: 2, base: 1 }}>
               <Text mb="4" fontSize="4xl" fontWeight="700" fontFamily="heading" as="h2">
                 Full license text
               </Text>
