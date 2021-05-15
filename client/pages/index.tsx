@@ -12,7 +12,7 @@ import { ColorResult } from 'react-color';
 import { InView } from 'react-intersection-observer';
 import { useWindowSize } from 'react-use';
 
-const isComingSoon = true;
+const isComingSoon = false;
 
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
@@ -69,10 +69,10 @@ export default function Home() {
                 <Grid
                   justifyItems="center"
                   alignItems="center"
-                  templateColumns="repeat(2, 1fr)"
+                  templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
                   gap="8"
                 >
-                  <Box>
+                  <Box textAlign={{ base: 'center', md: 'left' }}>
                     <SlideFade offsetY="20" in={delays[0]}>
                       <Text
                         color="white"
@@ -102,23 +102,29 @@ export default function Home() {
                       </Link>
                     </SlideFade>
                   </Box>
-                  <Box justifySelf="center" color={color}>
+                  <Box
+                    w="100%"
+                    maxW="476"
+                    gridRowStart={{ base: 1, md: 'auto' }}
+                    justifySelf="center"
+                    color={color}
+                  >
                     <SlideFade in={delays[3]}>
-                      <ILHero />
+                      <ILHero height="100%" width="100%" />
                     </SlideFade>
                   </Box>
                 </Grid>
               </Container>
             </Box>
-            <Container as="section" py="20" maxW="1536px">
+            <Container as="section" py={{ base: '8', md: '20' }} maxW="1536px">
               <Grid
                 justifyItems="center"
                 alignItems="center"
-                templateColumns="repeat(2, 1fr)"
+                templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
                 gap="8"
               >
                 <SlideFade in={delays[4]}>
-                  <Box>
+                  <Box textAlign={{ base: 'center', md: 'left' }}>
                     <Text
                       color="brand.cyanDark"
                       fontSize="4xl"
@@ -129,6 +135,11 @@ export default function Home() {
                     >
                       Creative Commons License
                     </Text>
+                    <Box my="8" display={{ base: 'block', md: 'none' }} color={color}>
+                      <SlideFade style={{ maxWidth: 400, margin: '0 auto' }} in={delays[5]}>
+                        <ILLicense width="100%" height="100%" />
+                      </SlideFade>
+                    </Box>
                     <Text maxW="512px" mb="8" color="brand.cyanDark">
                       We’re using <strong>Creative Commons Zero (CC0)</strong> license for all of
                       our illustrations. That means you can copy, modify, distribute and perform the
@@ -145,16 +156,24 @@ export default function Home() {
                     </Link>
                   </Box>
                 </SlideFade>
-                <Box justifySelf="center" color={color}>
+                <Box display={{ base: 'none', md: 'block' }} justifySelf="center" color={color}>
                   <SlideFade in={delays[5]}>
                     <ILLicense />
                   </SlideFade>
                 </Box>
               </Grid>
             </Container>
-            <Container as="section" py="20" maxW="1536px">
-              <Grid alignItems="center" templateColumns="repeat(2, 1fr)" gap="8">
-                <Box justifySelf="center" color="brand.cyan">
+            <Container as="section" py={{ base: '8', md: '20' }} maxW="1536px">
+              <Grid
+                alignItems="center"
+                templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
+                gap="8"
+              >
+                <Box
+                  display={{ base: 'none', md: 'block' }}
+                  justifySelf="center"
+                  color="brand.cyan"
+                >
                   <InView triggerOnce threshold={1}>
                     {({ inView, ref }) => (
                       <SlideFade offsetY="30" style={{ transitionDuration: '0.2s' }} in={inView}>
@@ -170,7 +189,7 @@ export default function Home() {
                       style={{ transitionDuration: '0.2s', transitionDelay: '0.3s' }}
                       in={inView}
                     >
-                      <Box ref={ref}>
+                      <Box textAlign={{ md: 'left', base: 'center' }} ref={ref}>
                         <Text
                           color="brand.cyanDark"
                           fontSize="4xl"
@@ -181,6 +200,24 @@ export default function Home() {
                         >
                           Edit Color On The Fly
                         </Text>
+                        <Box
+                          display={{ base: 'block', md: 'none' }}
+                          justifySelf="center"
+                          color="brand.cyan"
+                          my="8"
+                        >
+                          <InView triggerOnce threshold={1}>
+                            {({ inView, ref }) => (
+                              <SlideFade
+                                offsetY="30"
+                                style={{ transitionDuration: '0.2s' }}
+                                in={inView}
+                              >
+                                <ColorPicker ref={ref} color={color} onChange={handleChangeColor} />
+                              </SlideFade>
+                            )}
+                          </InView>
+                        </Box>
                         <Text maxW="512px" mb="8" color="brand.cyanDark">
                           Have you ever had a problem where an illustration you saw was too good to
                           miss out, yet the color didn’t suit your taste? Well, worry no more...!
@@ -193,7 +230,7 @@ export default function Home() {
                 </InView>
               </Grid>
             </Container>
-            <Container as="section" py="20" maxW="1536px">
+            <Container as="section" py={{ base: '8', md: '20' }} maxW="1536px">
               <InView triggerOnce threshold={1}>
                 {({ inView, ref }) => (
                   <SlideFade offsetY={20} style={{ transitionDuration: '0.3s' }} in={inView}>
@@ -201,10 +238,10 @@ export default function Home() {
                       ref={ref}
                       justifyItems="center"
                       alignItems="center"
-                      templateColumns="repeat(2, 1fr)"
+                      templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
                       gap="8"
                     >
-                      <Box>
+                      <Box textAlign={{ md: 'left', base: 'center' }}>
                         <Text
                           color="brand.cyanDark"
                           fontSize="4xl"
@@ -215,6 +252,14 @@ export default function Home() {
                         >
                           One File, Use Everywhere
                         </Text>
+                        <Box
+                          display={{ md: 'none', base: 'block' }}
+                          justifySelf="center"
+                          color={color}
+                          my="8"
+                        >
+                          <IlFiles width="100%" height="100%" />
+                        </Box>
                         <Text maxW="512px" mb="8" color="brand.cyanDark">
                           Download our SVG illustrations and use them on every project without
                           worrying about file compatibility. Do you know that you can scale SVG
@@ -222,7 +267,11 @@ export default function Home() {
                           is awesome I tell ya...!
                         </Text>
                       </Box>
-                      <Box justifySelf="center" color={color}>
+                      <Box
+                        display={{ md: 'block', base: 'none' }}
+                        justifySelf="center"
+                        color={color}
+                      >
                         <IlFiles />
                       </Box>
                     </Grid>
