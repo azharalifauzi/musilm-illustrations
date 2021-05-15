@@ -12,7 +12,7 @@ import { ColorResult } from 'react-color';
 import { InView } from 'react-intersection-observer';
 import { useWindowSize } from 'react-use';
 
-const isComingSoon = false;
+const isComingSoon = true;
 
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
