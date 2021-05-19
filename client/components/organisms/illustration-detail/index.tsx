@@ -59,7 +59,7 @@ const IllustrationDetail: React.FC<IllustrationDetailProps> = ({
 
       const string = await blob.text();
 
-      return string.replace(/#6c63ff/gi, 'currentColor');
+      return string.replace(/#26B6BD/gi, 'currentColor');
     },
     {
       keepPreviousData: true,
