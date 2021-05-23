@@ -3,6 +3,10 @@ import { ChakraProvider, extendTheme, ChakraTheme } from '@chakra-ui/react';
 import { createBreakpoints } from '@chakra-ui/theme-tools';
 import clsx from 'clsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import NProgress from 'nprogress';
+import Router from 'next/router';
+import Head from 'next/head';
+import 'nprogress/nprogress.css';
 
 const breakpoints = createBreakpoints({
   sm: '640px',
@@ -22,7 +26,7 @@ const theme = extendTheme<ChakraTheme>({
     brand: {
       cyan: '#26B6BD',
       cyanDark: '#60888A',
-      green: '#6AF078',
+      green: '#35D345',
       darkGrey: '#A0A0A0',
       softGrey: '#D5D5D5',
       cyanBlue: '#06A0A8',
@@ -89,15 +93,27 @@ const theme = extendTheme<ChakraTheme>({
   },
 });
 
+//Binding events.
+NProgress.configure({ showSpinner: false });
+Router.events.on('routeChangeStart', () => NProgress.start());
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
+
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </QueryClientProvider>
+    <>
+      <Head>
+        <title>Muslim Illustrations - Open Source Illustrations of Muslim Character</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </QueryClientProvider>
+    </>
   );
 }
 

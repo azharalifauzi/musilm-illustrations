@@ -5,7 +5,6 @@ import { IlComingSoon, IlFiles, ILHero, ILLicense, LogoMI } from 'assets';
 import { Layout } from 'components';
 import ColorPicker from 'components/organisms/color-picker';
 import { useDelay } from 'hooks';
-import Head from 'next/head';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ColorResult } from 'react-color';
@@ -26,11 +25,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>Muslim Illustrations | Coming Soon</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       {isComingSoon ? (
         <ComingSoon height={height} />
       ) : (

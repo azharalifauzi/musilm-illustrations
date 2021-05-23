@@ -7,6 +7,7 @@ import { debounce } from 'lodash';
 import { SearchSuggestion } from 'components/mollecules/search';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 interface SearchPageProps {
   topSearches: Illustration[];
@@ -40,7 +41,10 @@ const SearchPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({ 
   // eslint-disable-next-line
   const findSearchSuggestions = useCallback(
     debounce(async (search: string) => {
-      if (!search) return;
+      if (!search) {
+        setSearchSuggestions([]);
+        return;
+      }
 
       setSearchLoading(true);
       const res = await fetch('/api/v1/queries/search-suggestions', {
@@ -113,6 +117,9 @@ const SearchPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({ 
         id={query['open-detail'] as string}
         url={query['url'] as string}
       />
+      <Head>
+        <title>Search Illustrations | Muslim Illustrations</title>
+      </Head>
       <Layout>
         <main>
           <Container mt={{ md: '0', base: '32' }} px={{ base: '6', md: '10' }} maxW="1536px">
