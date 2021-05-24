@@ -17,4 +17,17 @@ a {
   box-sizing: border-box;
 }
 
+#nprogress .bar {
+  background: #26b6bd !important;
+}
+
+#nprogress .peg {
+  box-shadow: 0 0 10px #26b6bd, 0 0 5px #26b6bd;
+}
+
+#nprogress .spinner-icon {
+  border-top-color: #26b6bd;
+  border-left-color: #26b6bd;
+}
+
 @import './select-search.css';

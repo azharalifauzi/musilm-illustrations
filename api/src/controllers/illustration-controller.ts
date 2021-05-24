@@ -262,7 +262,7 @@ const getCategories = async (_req: Request, res: Response) => {
 };
 
 const downloadOne = async (req: Request, res: Response) => {
-  const { color = '#6C63FF', format = 'svg', id } = req.body;
+  const { color = '#26B6BD', format = 'svg', id } = req.body;
 
   const doc = await Illustration.findById(id);
 
@@ -281,7 +281,7 @@ const downloadOne = async (req: Request, res: Response) => {
       throw new Error('Failed to read file');
     }
 
-    const svg = data.toString().replace(/#6c63ff/gi, color);
+    const svg = data.toString().replace(/#26B6BD/gi, color);
 
     if (format === 'png') {
       try {

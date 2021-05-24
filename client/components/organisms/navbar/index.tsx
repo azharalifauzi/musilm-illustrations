@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, Slide, Text } from '@chakra-ui/react';
+import { Badge, Box, Flex, Grid, Slide, Text } from '@chakra-ui/react';
 import { LogoMI } from 'assets';
 import { IcMenu, IcSearch } from 'assets/icons';
 import clsx from 'clsx';
@@ -71,9 +71,12 @@ const Navbar = () => {
             <Box mr="3">
               <LogoMI height="56" data-testid="logo muslim illustrations" />
             </Box>
-            <Text color="brand.cyan" fontWeight="bold">
+            <Text color="brand.cyan" fontWeight="bold" mr="3">
               Muslim <br /> Illustrations
             </Text>
+            <Badge variant="subtle" colorScheme="cyan">
+              Beta
+            </Badge>
           </Flex>
         </a>
       </Link>
