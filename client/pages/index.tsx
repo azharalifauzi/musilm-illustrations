@@ -4,6 +4,7 @@ import { SlideFade } from '@chakra-ui/transition';
 import { IlComingSoon, IlFiles, ILHero, ILLicense, LogoMI } from 'assets';
 import { Layout } from 'components';
 import ColorPicker from 'components/organisms/color-picker';
+import dayjs from 'dayjs';
 import { useDelay } from 'hooks';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -11,7 +12,7 @@ import { ColorResult } from 'react-color';
 import { InView } from 'react-intersection-observer';
 import { useWindowSize } from 'react-use';
 
-const isComingSoon = true;
+const isComingSoon = false;
 
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
@@ -289,7 +290,7 @@ export default function Home() {
             </Container>
           </main>
           <Box textAlign="center" py="8" background="#F9F9F9" color="brand.cyanDark" as="footer">
-            © Copyright 2021 Muslim Illustration
+            © Copyright {dayjs().format('YYYY')} Muslim Illustration
           </Box>
         </Layout>
       )}
