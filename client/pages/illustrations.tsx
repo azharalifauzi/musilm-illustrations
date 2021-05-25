@@ -112,10 +112,10 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
   );
 
   const handleClickIllustration = (id: string, illustration: Illustration) => {
-    const { url, title } = illustration;
+    const { url, title, author } = illustration;
 
     setDetail(illustration);
-    Router.push({ query: { 'open-detail': id, url, title } });
+    Router.push({ query: { 'open-detail': id, url, title, author: author || 'Anonymus' } });
   };
 
   return (
@@ -127,7 +127,7 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
           setDetail(undefined);
         }}
         title={detail?.title || (query['title'] as string)}
-        author="Syamil"
+        author={detail?.author || (query['author'] as string)}
         id={detail?._id || (query['open-detail'] as string)}
         url={detail?.url || (query['url'] as string)}
       />

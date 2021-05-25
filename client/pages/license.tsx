@@ -43,7 +43,7 @@ const LicensePage = () => {
                   that right, a trully free-to-use illustrations for all of your projects’ needs.
                 </Text>
               </Box>
-              <Box display={{ md: 'block', base: 'none' }} color="brand.cyanDark">
+              <Box display={{ md: 'block', base: 'none' }} color="brand.cyan">
                 <ILLicense />
               </Box>
             </Grid>
@@ -75,6 +75,7 @@ const LicensePage = () => {
                 justifySelf={{ md: 'left', base: 'center' }}
                 mb={{ md: 0, base: '8' }}
                 colSpan={1}
+                color="brand.cyan"
               >
                 <IlAttachment viewBox="0 0 340 359" height="100%" width="100%" />
               </GridItem>
