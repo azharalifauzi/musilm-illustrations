@@ -27,8 +27,11 @@ const createIllustration = (options?: CreateIllustrationOpt) => {
     description = 'test illustration',
   } = options;
 
+  const user = global.signin();
+
   const response = request(app)
     .post('/api/v1/illustrations')
+    .set('Cookie', user)
     .attach('svg', path.resolve(__dirname, '../../public/test.svg'))
     .field('title', title)
     .field('categories', categories)
@@ -123,8 +126,25 @@ describe('GET /api/v1/illustrations/:id - get one illustration', () => {
 });
 
 describe('POST /api/v1/illustrations/ - post one illustration', () => {
+  it('gives error 401 for unauthenticated user', async () => {
+    await request(app)
+      .post('/api/v1/illustrations')
+      .attach('svg', path.resolve(__dirname, '../../public/test.svg'))
+      .field('title', 'test')
+      .field('categories', ['halo'])
+      .field('author', 'cek')
+      .field('description', 'ahay')
+      .expect(401);
+  });
+
   it('creates new document', async () => {
-    const response = await request(app).get('/api/v1/illustrations').send().expect(200);
+    const user = global.signin();
+
+    const response = await request(app)
+      .get('/api/v1/illustrations')
+      .set('Cookie', user)
+      .send()
+      .expect(200);
 
     expect(response.body.data.length).toEqual(0);
 
@@ -136,14 +156,18 @@ describe('POST /api/v1/illustrations/ - post one illustration', () => {
   });
 
   it('gives an error if an invalid title provided', async () => {
+    const user = global.signin();
+
     await request(app)
       .post('/api/v1/illustrations')
+      .set('Cookie', user)
       .attach('svg', path.resolve(__dirname, '../../public/test.svg'))
       .field('categories', ['halo'])
       .expect(400);
 
     await request(app)
       .post('/api/v1/illustrations')
+      .set('Cookie', user)
       .attach('svg', path.resolve(__dirname, '../../public/test.svg'))
       .field('title', '')
       .field('categories', ['halo'])
@@ -163,16 +187,22 @@ describe('POST /api/v1/illustrations/ - post one illustration', () => {
   });
 
   it('gives an error if there is no file attached', async () => {
+    const user = global.signin();
+
     await request(app)
       .post('/api/v1/illustrations')
+      .set('Cookie', user)
       .field('categories', ['testing'])
       .field('title', 'testing')
       .expect(400);
   });
 
   it('gives an error if file type not image', async () => {
+    const user = global.signin();
+
     await request(app)
       .post('/api/v1/illustrations')
+      .set('Cookie', user)
       .attach('svg', path.resolve(__dirname, '../../tmp/index.md'))
       .field('categories', ['testing'])
       .field('title', 'testing')
@@ -181,32 +211,52 @@ describe('POST /api/v1/illustrations/ - post one illustration', () => {
 });
 
 describe('PATCH /api/v1/illustrations/:id - edit one illustration', () => {
-  it('gives an error when trying to edit downloadCount', async () => {
+  it('gives 401 for unauthenticated user', async () => {
     const response = await createIllustration();
 
     const { _id } = response.body.data;
 
     await request(app)
       .patch(`/api/v1/illustrations/${_id}`)
+      .send({ title: 'this is edited one' })
+      .expect(401);
+  });
+
+  it('gives an error when trying to edit downloadCount', async () => {
+    const user = global.signin();
+    const response = await createIllustration();
+
+    const { _id } = response.body.data;
+
+    await request(app)
+      .patch(`/api/v1/illustrations/${_id}`)
+      .set('Cookie', user)
       .send({ downloadCount: 100 })
       .expect(403);
   });
 
   it('gives an error when trying to edit url path', async () => {
+    const user = global.signin();
     const response = await createIllustration();
 
     const { _id } = response.body.data;
 
-    await request(app).patch(`/api/v1/illustrations/${_id}`).send({ url: 'test.svg' }).expect(403);
+    await request(app)
+      .patch(`/api/v1/illustrations/${_id}`)
+      .set('Cookie', user)
+      .send({ url: 'test.svg' })
+      .expect(403);
   });
 
   it('edits the document and updates updatedAt field', async () => {
+    const user = global.signin();
     const response = await createIllustration();
 
     const { _id } = response.body.data;
 
     const updateResponse = await request(app)
       .patch(`/api/v1/illustrations/${_id}`)
+      .set('Cookie', user)
       .send({ title: 'this is edited one' })
       .expect(200);
 
@@ -217,7 +267,7 @@ describe('PATCH /api/v1/illustrations/:id - edit one illustration', () => {
 });
 
 describe('DELETE /api/v1/illustrations/:id - delete one illustration', () => {
-  it('deletes document', async () => {
+  it('gives 401 for unauthenticated user', async () => {
     const createResponse = await createIllustration();
     const { _id } = createResponse.body.data;
 
@@ -225,8 +275,22 @@ describe('DELETE /api/v1/illustrations/:id - delete one illustration', () => {
 
     expect(response.body.data.length).toEqual(1);
 
+    await request(app).delete(`/api/v1/illustrations/${_id}`).send().expect(401);
+  });
+
+  it('deletes document', async () => {
+    const createResponse = await createIllustration();
+    const { _id } = createResponse.body.data;
+
+    const user = global.signin();
+
+    const response = await request(app).get('/api/v1/illustrations/').send();
+
+    expect(response.body.data.length).toEqual(1);
+
     const deleteResponse = await request(app)
       .delete(`/api/v1/illustrations/${_id}`)
+      .set('Cookie', user)
       .send()
       .expect(203);
 
@@ -239,7 +303,13 @@ describe('DELETE /api/v1/illustrations/:id - delete one illustration', () => {
   it('gives an error if there is document not found', async () => {
     const id = new Types.ObjectId().toHexString();
 
-    await request(app).delete(`/api/v1/illustrations/${id}`).send().expect(404);
+    const userCookie = global.signin();
+
+    await request(app)
+      .delete(`/api/v1/illustrations/${id}`)
+      .set('Cookie', userCookie)
+      .send()
+      .expect(404);
   });
 });
 

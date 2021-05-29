@@ -1,6 +1,7 @@
 import express from 'express';
 import { body } from 'express-validator';
 import * as illustrationController from '../controllers/illustration-controller';
+import { AuthMiddleware } from '../middlewares/auth-middleware';
 import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
@@ -16,6 +17,7 @@ router
         .withMessage('Categories must at least have one category'),
     ],
     validateRequest,
+    AuthMiddleware,
     illustrationController.uploadSvg,
     illustrationController.createOne
   )
@@ -28,7 +30,7 @@ router.route('/download').post(illustrationController.downloadOne);
 router
   .route('/:id')
   .get(illustrationController.getOne)
-  .patch(illustrationController.updateOne)
-  .delete(illustrationController.deleteOne);
+  .patch(AuthMiddleware, illustrationController.updateOne)
+  .delete(AuthMiddleware, illustrationController.deleteOne);
 
 export default router;
