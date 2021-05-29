@@ -2,18 +2,26 @@ import express from 'express';
 import 'express-async-errors';
 import path from 'path';
 import { json } from 'body-parser';
+import cookieSession from 'cookie-session';
 import illustrationRouter from './routes/illustration-route';
 import QueryRouter from './routes/query-route';
+import AuthRouter from './routes/auth-routes';
 import { defaultErrorHandler } from './controllers/error-handler';
 
 const app = express();
 
 app.use(json({ limit: '10kb' }));
+app.use(
+  cookieSession({
+    signed: false,
+  })
+);
 app.use('/api/public', express.static(path.join(__dirname, './public')));
 
 // Routes
 app.use('/api/v1/illustrations', illustrationRouter);
 app.use('/api/v1/queries', QueryRouter);
+app.use('/api/v1/admin', AuthRouter);
 
 // Welcome Page
 app.get('/api', (_req, res) => {

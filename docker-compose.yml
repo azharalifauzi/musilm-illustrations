@@ -36,6 +36,9 @@ services:
       - app-network
     environment:
       - MONGO_URI=${MONGO_URI}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - JWT_KEY=${JWT_KEY}
   # mongo service
   mongo:
     image: mongo
