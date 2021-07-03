@@ -15,6 +15,7 @@ app.use(
   cookieSession({
     signed: false,
     secure: process.env.NODE_ENV === 'production',
+    name: 'mi:session',
   })
 );
 app.use('/api/public', express.static(path.join(__dirname, './public')));

@@ -28,7 +28,11 @@ const login = async (req: Request, res: Response) => {
     jwt: userJwt,
   };
 
-  res.status(200).send(user);
+  res.status(200).send({
+    token: userJwt,
+    sessionName: 'mi:session',
+    ...user.toJSON(),
+  });
 };
 
 const logout = async (req: Request, res: Response) => {
