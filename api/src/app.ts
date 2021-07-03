@@ -14,8 +14,10 @@ app.use(json({ limit: '10kb' }));
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV === 'production',
+    secure: false,
     name: 'mi:session',
+    sameSite: 'none',
+    secureProxy: true,
   })
 );
 app.use('/api/public', express.static(path.join(__dirname, './public')));
