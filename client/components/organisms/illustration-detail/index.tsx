@@ -187,19 +187,19 @@ const IllustrationDetail: React.FC<IllustrationDetailProps> = ({
                   Share :
                 </Text>
                 <Grid templateColumns="repeat(4, max-content)" gap="10px">
-                  <TwitterShareButton url={`https://muslimillustrations.co/${asPath}`}>
+                  <TwitterShareButton url={`https://muslimillustrations.co${asPath}`}>
                     <TwitterIcon round size={32} />
                   </TwitterShareButton>
-                  <FacebookShareButton url={`https://muslimillustrations.co/${asPath}`}>
+                  <FacebookShareButton url={`https://muslimillustrations.co${asPath}`}>
                     <FacebookIcon round size={32} />
                   </FacebookShareButton>
                   <PinterestShareButton
-                    media="/file"
-                    url={`https://muslimillustrations.co/${asPath}`}
+                    media={`https://muslimillustrations.co/api/public/${url}`}
+                    url={`https://muslimillustrations.co${asPath}`}
                   >
                     <PinterestIcon round size={32} />
                   </PinterestShareButton>
-                  <WhatsappShareButton url={`https://muslimillustrations.co/${asPath}`}>
+                  <WhatsappShareButton url={`https://muslimillustrations.co${asPath}`}>
                     <WhatsappIcon round size={32} />
                   </WhatsappShareButton>
                 </Grid>
