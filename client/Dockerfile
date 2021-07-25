@@ -18,6 +18,7 @@ FROM node:lts-alpine@sha256:bdec2d4aa13450a2e2654e562df1d8a3016b3c4ab390ccd3ed09
 WORKDIR /app
 
 ENV NODE_ENV=production
+ENV NEXT_PUBLIC_GA_ID=G-JF1K7YZC1K
 
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
