@@ -4,9 +4,11 @@ import { createBreakpoints } from '@chakra-ui/theme-tools';
 import clsx from 'clsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import NProgress from 'nprogress';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import 'nprogress/nprogress.css';
+import * as gtag from 'utils/gtag';
+import { useEffect } from 'react';
 
 const breakpoints = createBreakpoints({
   sm: '640px',
@@ -102,6 +104,18 @@ Router.events.on('routeChangeError', () => NProgress.done());
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Head>
