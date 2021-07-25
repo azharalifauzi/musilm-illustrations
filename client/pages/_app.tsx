@@ -120,6 +120,31 @@ function MyApp({ Component, pageProps }) {
     <>
       <Head>
         <title>Muslim Illustrations - Open Source Illustrations of Muslim Character</title>
+        <meta
+          name="description"
+          content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
+        />
+        <meta
+          property="og:title"
+          content="Muslim Illustrations - Open Source Illustrations of Muslim Character"
+        />
+        <meta
+          property="og:description"
+          content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://muslimillustrations.co/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@MuslimIllustrat" />
+        <meta
+          name="twitter:title"
+          content="Muslim Illustrations - Open Source Illustrations of Muslim Character"
+        />
+        <meta
+          name="twitter:description"
+          content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
+        />
+        <meta name="robots" content="index, follow" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <QueryClientProvider client={queryClient}>
