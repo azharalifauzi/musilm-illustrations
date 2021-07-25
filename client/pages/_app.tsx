@@ -145,6 +145,10 @@ function MyApp({ Component, pageProps }) {
           content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
         />
         <meta name="robots" content="index, follow" />
+        <meta
+          name="keywords"
+          content="Muslim Illustrations, Illustrations, Muslim Characters, Muslim Design, Design Illustrations, Muslim Art"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <QueryClientProvider client={queryClient}>
