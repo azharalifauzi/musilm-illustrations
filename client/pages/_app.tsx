@@ -4,9 +4,11 @@ import { createBreakpoints } from '@chakra-ui/theme-tools';
 import clsx from 'clsx';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import NProgress from 'nprogress';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import Head from 'next/head';
 import 'nprogress/nprogress.css';
+import * as gtag from 'utils/gtag';
+import { useEffect } from 'react';
 
 const breakpoints = createBreakpoints({
   sm: '640px',
@@ -102,10 +104,47 @@ Router.events.on('routeChangeError', () => NProgress.done());
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      gtag.pageview(url);
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Head>
         <title>Muslim Illustrations - Open Source Illustrations of Muslim Character</title>
+        <meta
+          name="description"
+          content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
+        />
+        <meta
+          property="og:title"
+          content="Muslim Illustrations - Open Source Illustrations of Muslim Character"
+        />
+        <meta
+          property="og:description"
+          content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://muslimillustrations.co/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:creator" content="@MuslimIllustrat" />
+        <meta
+          name="twitter:title"
+          content="Muslim Illustrations - Open Source Illustrations of Muslim Character"
+        />
+        <meta
+          name="twitter:description"
+          content="Muslim Illustration provides you with free-to-use muslim themed illustrations for personal and commercial uses. You don’t even need to include our awesome authors’ name in your project."
+        />
+        <meta name="robots" content="index, follow" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <QueryClientProvider client={queryClient}>

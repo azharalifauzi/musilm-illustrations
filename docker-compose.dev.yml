@@ -80,6 +80,7 @@ services:
       - app-network
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - NEXT_PUBLIC_GA_ID=${NEXT_PUBLIC_GA_ID}
 
 networks:
   app-network:
