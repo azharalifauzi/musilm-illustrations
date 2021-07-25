@@ -1,3 +1,4 @@
+import { CloseIcon } from '@chakra-ui/icons';
 import { Box, Container, Flex, Grid, Text } from '@chakra-ui/layout';
 import { IllustrationCard, IllustrationDetail, Layout } from 'components';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
@@ -5,7 +6,7 @@ import Router, { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useQuery } from 'react-query';
-import { SelectedOptionValue, SelectSearchProps } from 'react-select-search';
+import { SelectSearchProps } from 'react-select-search';
 import SelectSearch, { fuzzySearch } from 'react-select-search/dist/cjs';
 import { uniqueArray } from 'utils';
 
@@ -33,7 +34,7 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
   const { query } = useRouter();
   const [detail, setDetail] = useState<Illustration>();
   const [page, setPage] = useState<number>(1);
-  const [category, setCategory] = useState<SelectedOptionValue>();
+  const [category, setCategory] = useState<string>();
   const [illustrations, setIllustrations] = useState<Illustration[]>(initialIllustrations);
   const [ILByCategory, setILByCategory] = useState<Illustration[]>([]);
   const [pageByCategory, setPageByCategory] = useState<number>(1);
@@ -56,7 +57,7 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
     Illustration[],
     unknown,
     Illustration[],
-    [string, number, SelectedOptionValue, number]
+    [string, number, string, number]
   >(
     ['illustrations', page, category, pageByCategory],
     async ({ queryKey }) => {
@@ -158,22 +159,30 @@ const IllustrationsPage: React.FC<InferGetServerSidePropsType<typeof getServerSi
               personal and commercial uses. You don’t even need to include our awesome authors’ name
               in your project, but still we’d be grateful if you do that though.
             </Text>
-            <Flex justifyContent="flex-end">
+            <Flex alignItems="center" gridGap="3" justifyContent="flex-end">
               <DropdownSearch
                 options={[
-                  { name: 'Search by category', value: '' },
                   ...categories?.map(({ category }) => ({ name: category, value: category })),
                 ]}
                 placeholder="Search by category"
-                onChange={(selected) => {
-                  if (!Array.isArray(selected)) setCategory(selected);
+                // @ts-ignore
+                onChange={(selected: string | string[]) => {
+                  if (!Array.isArray(selected)) {
+                    setCategory(selected);
+                  }
                   setPageByCategory(1);
 
                   if (selected !== category) {
                     setILByCategory([]);
                   }
                 }}
+                value={category}
               />
+              {category?.length > 0 ? (
+                <button onClick={() => setCategory('')}>
+                  <CloseIcon color="brand.cyanDark" />
+                </button>
+              ) : null}
             </Flex>
             <Grid
               templateColumns={{
