@@ -5,7 +5,6 @@ import { IlComingSoon, IlFiles, ILHero, ILLicense, LogoMI } from 'assets';
 import { Layout } from 'components';
 import ColorPicker from 'components/organisms/color-picker';
 import dayjs from 'dayjs';
-import { useDelay } from 'hooks';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ColorResult } from 'react-color';
@@ -17,7 +16,6 @@ const isComingSoon = false;
 export default function Home() {
   const [color, setColor] = useState<string>('#26B6BD');
 
-  const { delays } = useDelay([0, 200, 200, 300, 300, 300, 300]);
   const { height } = useWindowSize(undefined, 900);
 
   const handleChangeColor = (color: ColorResult) => {
@@ -69,34 +67,28 @@ export default function Home() {
                   gap="8"
                 >
                   <Box textAlign={{ base: 'center', md: 'left' }}>
-                    <SlideFade offsetY="20" in={delays[0]}>
-                      <Text
-                        color="white"
-                        fontSize="5xl"
-                        fontFamily="heading"
-                        fontWeight="bold"
-                        as="h1"
-                        mb="6"
-                      >
-                        Muslim Illustration
-                      </Text>
-                    </SlideFade>
-                    <SlideFade offsetY="20" in={delays[1]}>
-                      <Text maxW="512px" mb="8" color="white">
-                        Muslim Illustration provides you with free-to-use muslim themed
-                        illustrations for personal and commercial uses. You don’t even need to
-                        include our awesome authors’ name in your project.
-                      </Text>
-                    </SlideFade>
-                    <SlideFade offsetY="20" in={delays[2]}>
-                      <Link href="/illustrations">
-                        <a>
-                          <Button fontSize="16px" size="lg" colormode="white">
-                            Browse our illustrations
-                          </Button>
-                        </a>
-                      </Link>
-                    </SlideFade>
+                    <Text
+                      color="white"
+                      fontSize="5xl"
+                      fontFamily="heading"
+                      fontWeight="bold"
+                      as="h1"
+                      mb="6"
+                    >
+                      Muslim Illustration
+                    </Text>
+                    <Text maxW="512px" mb="8" color="white">
+                      Muslim Illustration provides you with free-to-use muslim themed illustrations
+                      for personal and commercial uses. You don’t even need to include our awesome
+                      authors’ name in your project.
+                    </Text>
+                    <Link href="/illustrations">
+                      <a>
+                        <Button fontSize="16px" size="lg" colormode="white">
+                          Browse our illustrations
+                        </Button>
+                      </a>
+                    </Link>
                   </Box>
                   <Box
                     w="100%"
@@ -106,9 +98,7 @@ export default function Home() {
                     color={color}
                     position="relative"
                   >
-                    <SlideFade in={delays[3]}>
-                      <ILHero height="100%" width="100%" />
-                    </SlideFade>
+                    <ILHero height="100%" width="100%" />
                   </Box>
                 </Grid>
               </Container>
@@ -125,43 +115,36 @@ export default function Home() {
                 templateColumns={{ md: 'repeat(2, 1fr)', base: '1fr' }}
                 gap="8"
               >
-                <SlideFade in={delays[4]}>
-                  <Box textAlign={{ base: 'center', md: 'left' }}>
-                    <Text
-                      color="brand.cyanDark"
-                      fontSize="4xl"
-                      fontFamily="heading"
-                      fontWeight="bold"
-                      as="h2"
-                      mb="6"
-                    >
-                      Creative Commons License
-                    </Text>
-                    <Box my="8" display={{ base: 'block', md: 'none' }} color={color}>
-                      <SlideFade style={{ maxWidth: 400, margin: '0 auto' }} in={delays[5]}>
-                        <ILLicense width="100%" height="100%" />
-                      </SlideFade>
-                    </Box>
-                    <Text maxW="512px" mb="8" color="brand.cyanDark">
-                      We’re using <strong>Creative Commons Zero (CC0)</strong> license for all of
-                      our illustrations. That means you can copy, modify, distribute and perform the
-                      work, even for commercial purposes, all without asking our permission. Yap,
-                      you read that right, a trully free-to-use illustrations for all of your
-                      projects’ needs.
-                    </Text>
-                    <Link href="/license">
-                      <a>
-                        <Button fontSize="16px" variant="outlined">
-                          Read More
-                        </Button>
-                      </a>
-                    </Link>
+                <Box textAlign={{ base: 'center', md: 'left' }}>
+                  <Text
+                    color="brand.cyanDark"
+                    fontSize="4xl"
+                    fontFamily="heading"
+                    fontWeight="bold"
+                    as="h2"
+                    mb="6"
+                  >
+                    Creative Commons License
+                  </Text>
+                  <Box my="8" display={{ base: 'block', md: 'none' }} color={color}>
+                    <ILLicense width="100%" height="100%" />
                   </Box>
-                </SlideFade>
+                  <Text maxW="512px" mb="8" color="brand.cyanDark">
+                    We’re using <strong>Creative Commons Zero (CC0)</strong> license for all of our
+                    illustrations. That means you can copy, modify, distribute and perform the work,
+                    even for commercial purposes, all without asking our permission. Yap, you read
+                    that right, a trully free-to-use illustrations for all of your projects’ needs.
+                  </Text>
+                  <Link href="/license">
+                    <a>
+                      <Button fontSize="16px" variant="outlined">
+                        Read More
+                      </Button>
+                    </a>
+                  </Link>
+                </Box>
                 <Box display={{ base: 'none', md: 'block' }} justifySelf="center" color={color}>
-                  <SlideFade in={delays[5]}>
-                    <ILLicense />
-                  </SlideFade>
+                  <ILLicense />
                 </Box>
               </Grid>
             </Container>
